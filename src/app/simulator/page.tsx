@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Play, Pause, RotateCcw, Settings, TrendingUp, Zap, Thermometer, Gauge, Eye, Lightbulb } from "lucide-react";
+import { Play, Pause, RotateCcw, Settings, Zap, Thermometer, Gauge, Eye, Lightbulb } from "lucide-react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sphere, Text } from "@react-three/drei";
 import * as THREE from "three";
@@ -151,10 +151,20 @@ function StatusIndicator({
   const percentage = Math.min((value / maxValue) * 100, 100);
   const isWarning = warningThreshold && value > warningThreshold;
   
+  // Define color classes properly
+  const colorClasses = {
+    cyan: { icon: 'text-cyan-400', bar: 'bg-cyan-500' },
+    orange: { icon: 'text-orange-400', bar: 'bg-orange-500' },
+    blue: { icon: 'text-blue-400', bar: 'bg-blue-500' },
+    yellow: { icon: 'text-yellow-400', bar: 'bg-yellow-500' }
+  };
+  
+  const colorClass = colorClasses[color as keyof typeof colorClasses] || colorClasses.cyan;
+  
   return (
     <div className="space-card p-4">
       <div className="flex items-center gap-2 mb-2">
-        <Icon size={20} className={`text-${color}-400`} />
+        <Icon size={20} className={colorClass.icon} />
         <span className="text-sm font-medium text-slate-300">{label}</span>
       </div>
       <div className="text-2xl font-bold text-white mb-2">
@@ -163,7 +173,7 @@ function StatusIndicator({
       <div className="w-full bg-slate-700 rounded-full h-2">
         <div 
           className={`h-2 rounded-full transition-all duration-300 ${
-            isWarning ? 'bg-red-500' : `bg-${color}-500`
+            isWarning ? 'bg-red-500' : colorClass.bar
           }`}
           style={{ width: `${percentage}%` }}
         />
@@ -380,22 +390,124 @@ export default function Simulator() {
 
             {/* Charts */}
             <div className="space-y-6">
-              {/* Multi-parameter chart */}
+              {/* Bubble Radius Chart */}
               <div className="space-card p-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="text-cyan-400" size={20} />
-                  <h3 className="text-lg font-semibold text-white">Real-time Dynamics</h3>
+                  <Gauge className="text-cyan-400" size={20} />
+                  <h3 className="text-lg font-semibold text-white">Bubble Radius</h3>
+                  <div className="ml-auto text-sm text-slate-400">
+                    {currentData ? `${currentData.radius.toFixed(2)} μm` : '-- μm'}
+                  </div>
                 </div>
-                <div className="h-64">
+                <div className="h-48">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={data.slice(-100)}>
+                    <LineChart data={data.slice(-50)}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                       <XAxis 
                         dataKey="time" 
                         stroke="#9CA3AF"
-                        tickFormatter={(value) => `${value.toFixed(2)}s`}
+                        tickFormatter={(value) => `${value.toFixed(1)}s`}
                       />
-                      <YAxis stroke="#9CA3AF" />
+                      <YAxis 
+                        stroke="#9CA3AF"
+                        domain={['dataMin - 0.5', 'dataMax + 0.5']}
+                        tickFormatter={(value) => `${value.toFixed(1)}μm`}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1F2937', 
+                          border: '1px solid #374151',
+                          borderRadius: '8px'
+                        }}
+                        formatter={(value: number) => [`${value.toFixed(2)} μm`, 'Radius']}
+                        labelFormatter={(value) => `Time: ${Number(value).toFixed(2)}s`}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="radius" 
+                        stroke="#22D3EE" 
+                        strokeWidth={3}
+                        dot={false}
+                        name="Bubble Radius"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Temperature Chart */}
+              <div className="space-card p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Thermometer className="text-orange-400" size={20} />
+                  <h3 className="text-lg font-semibold text-white">Temperature</h3>
+                  <div className="ml-auto text-sm text-slate-400">
+                    {currentData ? `${(currentData.temperature/1000).toFixed(1)} kK` : '-- kK'}
+                  </div>
+                </div>
+                <div className="h-48">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data.slice(-50)}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="time" 
+                        stroke="#9CA3AF"
+                        tickFormatter={(value) => `${value.toFixed(1)}s`}
+                      />
+                      <YAxis 
+                        stroke="#9CA3AF"
+                        tickFormatter={(value) => `${(value/1000).toFixed(0)}kK`}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1F2937', 
+                          border: '1px solid #374151',
+                          borderRadius: '8px'
+                        }}
+                        formatter={(value: number) => [`${(value/1000).toFixed(1)} kK`, 'Temperature']}
+                        labelFormatter={(value) => `Time: ${Number(value).toFixed(2)}s`}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="temperature" 
+                        stroke="#FB923C" 
+                        strokeWidth={3}
+                        dot={false}
+                        name="Temperature"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Pressure and Light Chart */}
+              <div className="space-card p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Zap className="text-blue-400" size={20} />
+                  <h3 className="text-lg font-semibold text-white">Pressure & Light Emission</h3>
+                  <div className="ml-auto text-sm text-slate-400">
+                    {currentData ? `${currentData.pressure.toFixed(1)} atm | ${(currentData.lightIntensity*100).toFixed(1)}%` : '-- atm | --%'}
+                  </div>
+                </div>
+                <div className="h-48">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data.slice(-50)}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="time" 
+                        stroke="#9CA3AF"
+                        tickFormatter={(value) => `${value.toFixed(1)}s`}
+                      />
+                      <YAxis 
+                        yAxisId="pressure"
+                        stroke="#60A5FA"
+                        tickFormatter={(value) => `${value.toFixed(0)}atm`}
+                      />
+                      <YAxis 
+                        yAxisId="light"
+                        orientation="right"
+                        stroke="#FDE047"
+                        tickFormatter={(value) => `${(value*100).toFixed(0)}%`}
+                      />
                       <Tooltip 
                         contentStyle={{ 
                           backgroundColor: '#1F2937', 
@@ -403,49 +515,42 @@ export default function Simulator() {
                           borderRadius: '8px'
                         }}
                         formatter={(value: number, name: string) => {
-                          const formatters: { [key: string]: (v: number) => string } = {
-                            radius: (v) => `${v.toFixed(2)} μm`,
-                            temperature: (v) => `${(v/1000).toFixed(1)} kK`,
-                            pressure: (v) => `${v.toFixed(1)} atm`,
-                            lightIntensity: (v) => `${(v*100).toFixed(1)}%`
-                          };
-                          return [formatters[name]?.(value) || value, name];
+                          if (name === 'pressure') return [`${value.toFixed(1)} atm`, 'Pressure'];
+                          if (name === 'lightIntensity') return [`${(value*100).toFixed(1)}%`, 'Light'];
+                          return [value, name];
                         }}
+                        labelFormatter={(value) => `Time: ${Number(value).toFixed(2)}s`}
                       />
                       <Line 
-                        type="monotone" 
-                        dataKey="radius" 
-                        stroke="#22D3EE" 
-                        strokeWidth={2}
-                        dot={false}
-                        name="radius"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="temperature" 
-                        stroke="#FB923C" 
-                        strokeWidth={2}
-                        dot={false}
-                        name="temperature"
-                      />
-                      <Line 
+                        yAxisId="pressure"
                         type="monotone" 
                         dataKey="pressure" 
                         stroke="#60A5FA" 
-                        strokeWidth={2}
+                        strokeWidth={3}
                         dot={false}
                         name="pressure"
                       />
                       <Line 
+                        yAxisId="light"
                         type="monotone" 
                         dataKey="lightIntensity" 
                         stroke="#FDE047" 
-                        strokeWidth={3}
+                        strokeWidth={4}
                         dot={false}
                         name="lightIntensity"
                       />
                     </LineChart>
                   </ResponsiveContainer>
+                </div>
+                <div className="flex justify-center gap-6 mt-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-0.5 bg-blue-400"></div>
+                    <span className="text-slate-400">Pressure (atm)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-0.5 bg-yellow-400"></div>
+                    <span className="text-slate-400">Light Emission (%)</span>
+                  </div>
                 </div>
               </div>
             </div>
