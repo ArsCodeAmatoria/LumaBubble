@@ -1,3 +1,6 @@
+<div align="center">
+
+```
 ██╗     ██╗   ██╗███╗   ███╗ █████╗ ██████╗ ██╗   ██╗██████╗ ██████╗ ██╗     ███████╗
 ██║     ██║   ██║████╗ ████║██╔══██╗██╔══██╗██║   ██║██╔══██╗██╔══██╗██║     ██╔════╝
 ██║     ██║   ██║██╔████╔██║███████║██████╔╝██║   ██║██████╔╝██████╔╝██║     █████╗  
@@ -5,8 +8,6 @@
 ███████╗╚██████╔╝██║ ╚═╝ ██║██║  ██║██████╔╝╚██████╔╝██████╔╝██████╔╝███████╗███████╗
 ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
 ```
-
-<div align="center">
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.0+-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
