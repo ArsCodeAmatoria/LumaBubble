@@ -23,7 +23,7 @@
 
 ---
 
-![LumaBubble Simulator]([YOUR_IMAGE_URL_HERE])
+![LumaBubble Simulator](https://github.com/user-attachments/assets/f48c3a57-018f-4104-9f07-e02e1e32736a)
 
 ## About
 
