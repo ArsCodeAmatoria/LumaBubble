@@ -38,7 +38,7 @@ export default function Home() {
                 <span className="hero-text"> Sonoluminescence</span>
               </h2>
               <p className="text-lg text-slate-300 mb-6 leading-relaxed">
-                Sonoluminescence is one of physics' most fascinating phenomena - tiny bubbles in water 
+                Sonoluminescence is one of physics&apos; most fascinating phenomena - tiny bubbles in water 
                 emit brilliant flashes of light when collapsed by sound waves. The temperatures inside 
                 these collapsing bubbles can reach those found in the core of stars.
               </p>
@@ -68,7 +68,7 @@ export default function Home() {
                 </div>
                 <p className="text-slate-300">
                   Bubble collapse generates temperatures exceeding 1 million Kelvin - 
-                  hotter than the sun's surface.
+                  hotter than the sun&apos;s surface.
                 </p>
               </div>
               
@@ -79,7 +79,7 @@ export default function Home() {
                 </div>
                 <p className="text-slate-300">
                   Despite decades of research, the exact mechanism behind 
-                  light emission remains one of physics' great puzzles.
+                  light emission remains one of physics&apos; great puzzles.
                 </p>
               </div>
               

@@ -31,7 +31,6 @@ export default function Simulator() {
   });
   
   const [data, setData] = useState<DataPoint[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
 
   // Simplified physics simulation (would be replaced with WASM)
   const simulateStep = useCallback((step: number, params: SimulationParams): DataPoint => {
@@ -65,18 +64,15 @@ export default function Simulator() {
   useEffect(() => {
     if (!isRunning) return;
 
+    let step = 0;
     const interval = setInterval(() => {
-      setCurrentStep(prev => {
-        const newStep = prev + 1;
-        const newDataPoint = simulateStep(newStep, params);
-        
-        setData(prevData => {
-          const newData = [...prevData, newDataPoint];
-          // Keep only last 1000 points for performance
-          return newData.length > 1000 ? newData.slice(-1000) : newData;
-        });
-        
-        return newStep;
+      step += 1;
+      const newDataPoint = simulateStep(step, params);
+      
+      setData(prevData => {
+        const newData = [...prevData, newDataPoint];
+        // Keep only last 1000 points for performance
+        return newData.length > 1000 ? newData.slice(-1000) : newData;
       });
     }, 16); // ~60 FPS
 
@@ -86,7 +82,6 @@ export default function Simulator() {
   const handleReset = () => {
     setIsRunning(false);
     setData([]);
-    setCurrentStep(0);
   };
 
   const handleParamChange = (param: keyof SimulationParams, value: number) => {

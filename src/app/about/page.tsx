@@ -10,7 +10,7 @@ export default function About() {
             About <span className="hero-text">Sonoluminescence</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-            Explore one of physics' most enigmatic phenomena - where sound waves create light 
+            Explore one of physics&apos; most enigmatic phenomena - where sound waves create light 
             through bubble collapse, reaching temperatures that rival the core of stars.
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function About() {
               </p>
               <p className="text-lg text-slate-300 leading-relaxed">
                 First discovered in the 1930s but not studied in detail until the 1990s, 
-                sonoluminescence remains one of physics' greatest unsolved mysteries, 
+                sonoluminescence remains one of physics&apos; greatest unsolved mysteries, 
                 with light emission mechanisms still hotly debated among researchers.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function About() {
               <p className="text-lg text-slate-300 mb-4">
                 As electrons are accelerated and decelerated by the strong electric fields in the 
                 collapsing bubble, they emit electromagnetic radiation. This process, known as 
-                bremsstrahlung (German for "braking radiation"), could explain the light emission.
+                bremsstrahlung (German for &quot;braking radiation&quot;), could explain the light emission.
               </p>
               <div className="flex items-center gap-2 text-blue-400">
                 <Atom size={20} />

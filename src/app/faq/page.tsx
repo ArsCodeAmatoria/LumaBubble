@@ -26,7 +26,7 @@ const faqData: FAQItem[] = [
   {
     id: "why-mystery",
     question: "Why is sonoluminescence still a mystery?",
-    answer: "Despite decades of research, scientists still don't fully understand the exact mechanism that produces the light. The extreme conditions inside the collapsing bubble - temperatures of millions of degrees and pressures of thousands of atmospheres - make it extremely difficult to study directly. Multiple theories exist, but none completely explain all observed phenomena.",
+    answer: "Despite decades of research, scientists still don&apos;t fully understand the exact mechanism that produces the light. The extreme conditions inside the collapsing bubble - temperatures of millions of degrees and pressures of thousands of atmospheres - make it extremely difficult to study directly. Multiple theories exist, but none completely explain all observed phenomena.",
     category: "Physics"
   },
   {
@@ -190,7 +190,7 @@ export default function FAQ() {
               <h2 className="text-2xl font-bold text-white">Still Have Questions?</h2>
             </div>
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-              Can't find what you're looking for? We're here to help you understand 
+              Can&apos;t find what you&apos;re looking for? We&apos;re here to help you understand 
               the fascinating world of sonoluminescence.
             </p>
             <div className="flex flex-wrap justify-center gap-4">

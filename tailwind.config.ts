@@ -1,12 +1,13 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -51,7 +52,12 @@ export default {
       },
       fontFamily: {
         'space': ['Space Mono', 'monospace'],
+        'sans': ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui'],
+        'mono': ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular'],
       },
     },
   },
-} satisfies Config; 
+  plugins: [require("tailwindcss-animate")],
+};
+
+export default config; 
