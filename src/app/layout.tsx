@@ -32,11 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <html lang="en" className="dark overscroll-none overflow-x-hidden">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overscroll-none overflow-x-hidden`}>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overscroll-contain">
           <Navigation />
-          <main className="relative">
+          <main className="relative overscroll-contain">
             {children}
           </main>
           <footer className="border-t border-slate-700/50 bg-slate-900/50 backdrop-blur-sm">

@@ -137,10 +137,11 @@ function WaterRipples() {
 // Main hero scene component
 const HeroScene = () => {
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-screen relative overscroll-none">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ background: 'transparent' }}
+        className="overscroll-none"
       >
         {/* Lighting */}
         <ambientLight intensity={0.2} />
@@ -171,7 +172,7 @@ const HeroScene = () => {
       </Canvas>
 
       {/* Overlay content */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overscroll-none">
         <div className="text-center z-10">
           <h1 className="text-6xl md:text-8xl font-bold hero-text mb-4">
             LumaBubble

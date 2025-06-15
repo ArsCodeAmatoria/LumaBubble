@@ -7,15 +7,47 @@
   border-color: rgb(51 65 85); /* slate-600 */
 }
 
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  /* Prevent pull-to-refresh on mobile */
+  overscroll-behavior-y: none;
+}
+
 body {
   background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
   color: #f1f5f9; /* slate-100 */
   min-height: 100vh;
   font-family: ui-sans-serif, system-ui, sans-serif;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  position: relative;
+  /* Prevent pull-to-refresh on mobile */
+  overscroll-behavior-y: none;
+  /* Prevent bounce scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Prevent overscroll on all elements */
+* {
+  overscroll-behavior: contain;
+}
+
+/* Mobile-specific overscroll prevention */
+@media (max-width: 768px) {
+  html, body {
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    /* Prevent elastic scrolling on iOS */
+    -webkit-overflow-scrolling: auto;
+  }
+  
+  /* Prevent touch actions that could cause overscroll */
+  * {
+    touch-action: pan-y;
+  }
 }
 
 /* Hero text gradient */
